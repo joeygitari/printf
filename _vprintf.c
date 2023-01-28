@@ -39,42 +39,34 @@ int _vprintf(spec_t op[], const char *format, va_list aps)
 		{
 			counter += _putchar(*format);
 			continue;
-
 		}
-
-
 		format++;
-
 		func[0] = selfunc(op, *format);
 		if (func[0].sp != NULL)
-
-			counter += func[0].f(aps);																	if (func[0].sp == NULL)
-						
+			counter += func[0].f(aps);
+		if (func[0].sp == NULL)						
 			{
-
 				if (*format == '+' || *format == ' ' || *format == '#')
 				{
-															++format;
-																									func[0] = selfunc(op, *format);
-																									counter += flags(*(format - 1), func);																																			counter += func[0].f(aps);
-				}
+					++format;																		
+					func[0] = selfunc(op, *format)																					
+						counter += flags(*(format - 1), func);																																			
+					counter += func[0].f(aps)
+					}
 			}
 		if (func[0].sp == NULL)
 		{
-			if (*format == '%')
-																															counter += _putchar (*format);
-			if (*format != '\0' && *format != '%')
-																																		counter += _putchar (*(--format));
+			if (*format == '%')																										
+				counter += _putchar (*format);
+			if (*format != '\0' && *format != '%')																														
+				counter += _putchar (*(--format));
 
 			if (*format == '\0')
-
 			{
 				counter = -1;
 				break;
 			}
-		}
-
-	
-																			}
+		}																	
+	}
 	return (counter);
 }
